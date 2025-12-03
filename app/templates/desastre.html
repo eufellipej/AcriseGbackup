@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_links %}
+<title>Detalhes do Desastre: Terremoto</title>
+<link rel="stylesheet" href="{% static 'styles/desastre.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="detalhe-header">
+    <div class="detalhe-icono" style="background-color: #e74c3c;">
+        <i class="fas fa-house-damage"></i>
+    </div>
+    <div class="detalhe-titulo">
+        <h2>Terremoto</h2>
+        <p>Movimentos súbitos da crosta terrestre que liberam energia acumulada</p>
+    </div>
+</div>
+
+<div class="conteudo-principal">
+    <div class="conteudo-esquerda">
+        <div class="secao-conteudo">
+            <h3>Visão Geral</h3>
+            <p>Terremotos são vibrações bruscas da superfície terrestre resultantes de movimentos subterrâneos de placas rochosas, atividade vulcânica, ou deslocamentos de gases. Ocorrem principalmente nas bordas das placas tectônicas, onde a pressão acumulada é liberada repentinamente.</p>
+        </div>
+
+        <div class="secao-conteudo">
+            <h3>Causas Principais</h3>
+            <ul class="lista-detalhes">
+                <li>Movimento das placas tectônicas</li>
+                <li>Atividade vulcânica</li>
+                <li>Deslizamentos de terra subterrâneos</li>
+                <li>Explosões nucleares ou de mineração</li>
+            </ul>
+        </div>
+
+        <div class="secao-conteudo">
+            <h3>Medidas de Prevenção</h3>
+            <div class="passos-container">
+                <div class="passo-item">
+                    <div class="passo-numero">1</div>
+                    <div class="passo-conteudo">
+                        <h4>Construções resistentes</h4>
+                        <p>Edifícios devem seguir códigos sísmicos com estruturas flexíveis e fundações profundas.</p>
+                    </div>
+                </div>
+                <div class="passo-item">
+                    <div class="passo-numero">2</div>
+                    <div class="passo-conteudo">
+                        <h4>Plano familiar de emergência</h4>
+                        <p>Estabeleça pontos de encontro e comunicação para a família em caso de desastre.</p>
+                    </div>
+                </div>
+                <div class="passo-item">
+                    <div class="passo-numero">3</div>
+                    <div class="passo-conteudo">
+                        <h4>Kit de emergência</h4>
+                        <p>Mantenha água, comida não perecível, remédios e documentos importantes acessíveis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="secao-conteudo">
+            <h3>O que fazer durante um terremoto?</h3>
+            <ul class="lista-detalhes">
+                <li>Se estiver dentro de casa: procure abrigo sob móveis resistentes</li>
+                <li>Se estiver ao ar livre: afaste-se de edifícios, postes e fios elétricos</li>
+                <li>Se estiver dirigindo: pare o carro em local seguro e permaneça dentro do veículo</li>
+                <li>Não use elevadores durante ou logo após o tremor</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="barra-lateral">
+        <div class="info-card">
+            <h3><i class="fas fa-info-circle"></i> Informações Técnicas</h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h4>Escala de Magnitude</h4>
+                    <p>Richter (ML) e Momento (Mw)</p>
+                </div>
+                <div class="info-item">
+                    <h4>Áreas de Risco</h4>
+                    <p>Círculo de Fogo do Pacífico, Falha de San Andreas</p>
+                </div>
+                <div class="info-item">
+                    <h4>Frequência Global</h4>
+                    <p>~500,000 terremotos detectáveis por ano</p>
+                </div>
+                <div class="info-item">
+                    <h4>Velocidade de Propagação</h4>
+                    <p>3-8 km/s (ondas P), 2-5 km/s (ondas S)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3><i class="fas fa-history"></i> Fatos Históricos</h3>
+            <div class="fato-historico">
+                <h4>Terremoto do Chile (1960)</h4>
+                <p>Magnitude 9.5 - o mais forte já registrado</p>
+            </div>
+            <div class="fato-historico">
+                <h4>Terremoto do Oceano Índico (2004)</h4>
+                <p>Magnitude 9.1 - gerou tsunami que matou 230,000 pessoas</p>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h3><i class="fas fa-download"></i> Recursos Adicionais</h3>
+            <div class="recursos-lista">
+                <div class="recurso-item">
+                    <i class="fas fa-download"></i>
+                    <a href="#">Guia de Sobrevivência a Terremotos (PDF)</a>
+                </div>
+                <div class="recurso-item">
+                    <i class="fas fa-map-marked-alt"></i>
+                    <a href="#">Mapa de Risco Sísmico Interativo</a>
+                </div>
+                <div class="recurso-item">
+                    <i class="fas fa-video"></i>
+                    <a href="#">Vídeo: Preparação para Terremotos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="simulador-container">
+    <h3>Simulador Interativo: Efeitos do Terremoto</h3>
+    <div class="simulador-controles">
+        <div class="controle-slider">
+            <label for="magnitude">Magnitude: <span id="magnitude-value">6.0</span></label>
+            <input type="range" id="magnitude" min="3" max="9" step="0.1" value="6.0">
+        </div>
+        <div class="controle-slider">
+            <label for="profundidade">Profundidade: <span id="profundidade-value">10</span> km</label>
+            <input type="range" id="profundidade" min="1" max="100" value="10">
+        </div>
+        <button class="btn" id="simular-terremoto">Simular Terremoto</button>
+    </div>
+    <div class="simulador-resultado" id="simulador-resultado">
+        <h4>Resultado da Simulação</h4>
+        <p id="resultado-texto"></p>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'scripts/desastre.js' %}"></script>
+{% endblock %}

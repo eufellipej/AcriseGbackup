@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{% block extra_links %}
+<title>Classes de Artigos</title>
+<link rel="stylesheet" href="{% static 'styles/artigos.css'%}">
+{% endblock %}
+{% block content %}
+
+<div class="cabecario-sessao">
+    <h2>Artigos Científicos</h2>
+    <button class="btn" id="suggest-article">Sugerir Artigo</button>
+</div>
+
+<div class="grade-artigo">
+    <div class="artigo-card">
+        <div class="article-code">ART-001</div>
+        <h3>Mecanismos de Prevenção de Terremotos</h3>
+        <p>Análise das técnicas mais eficientes para minimizar danos estruturais em áreas sísmicas.</p>
+        <a href="{% url 'artigo' %}" class="btn btn-outline">Ler Artigo</a>
+    </div>
+
+    <div class="artigo-card">
+        <div class="article-code">ART-015</div>
+        <h3>Impacto das Mudanças Climáticas na Frequência de Furacões</h3>
+        <p>Estudo sobre a correlação entre o aquecimento global e o aumento de eventos extremos.</p>
+        <a href="#" class="btn btn-outline">Ler Artigo</a>
+    </div>
+
+    <div class="artigo-card">
+        <div class="article-code">ART-023</div>
+        <h3>Sistemas de Alerta Precoce para Tsunamis</h3>
+        <p>Tecnologias avançadas de detecção e alerta para populações costeiras.</p>
+        <a href="#" class="btn btn-outline">Ler Artigo</a>
+    </div>
+
+    <div class="artigo-card">
+        <div class="article-code">ART-037</div>
+        <h3>Gestão de Crise em Erupções Vulcânicas</h3>
+        <p>Protocolos de evacuação e proteção civil em áreas de risco vulcânico.</p>
+        <a href="#" class="btn btn-outline">Ler Artigo</a>
+    </div>
+
+    <div class="artigo-card">
+        <div class="article-code">ART-042</div>
+        <h3>Urbanização Resiliente a Inundações</h3>
+        <p>Estratégias de planejamento urbano para reduzir impactos de cheias em grandes cidades.</p>
+        <a href="#" class="btn btn-outline">Ler Artigo</a>
+    </div>
+
+    <div class="artigo-card">
+        <div class="article-code">ART-056</div>
+        <h3>Monitoramento de Encostas com Sensores IoT</h3>
+        <p>Inovações tecnológicas na prevenção de deslizamentos de terra.</p>
+        <a href="#" class="btn btn-outline">Ler Artigo</a>
+    </div>
+
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="{% static 'scripts/artigos.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,299 @@
+/* desastres.css - Página de Tipos de Desastres */
+
+.grade-dissater {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--espaco-lg);
+    margin: var(--espaco-lg) 0;
+}
+
+.disaster-card {
+    background: var(--secudario);
+    border-radius: var(--raio-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.disaster-card:nth-child(1) { animation-delay: 0.1s; }
+.disaster-card:nth-child(2) { animation-delay: 0.2s; }
+.disaster-card:nth-child(3) { animation-delay: 0.3s; }
+.disaster-card:nth-child(4) { animation-delay: 0.4s; }
+.disaster-card:nth-child(5) { animation-delay: 0.5s; }
+.disaster-card:nth-child(6) { animation-delay: 0.6s; }
+
+.disaster-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--sombra-forte);
+}
+
+.disaster-icon {
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.disaster-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0,0,0,0.3), transparent);
+}
+
+.disaster-icon i {
+    position: relative;
+    z-index: 2;
+    animation: float 3s ease-in-out infinite;
+}
+
+.disaster-info {
+    padding: var(--espaco-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.disaster-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--espaco-sm);
+    color: var(--fonte);
+    position: relative;
+    display: inline-block;
+}
+
+.disaster-info h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--destaque1);
+    border-radius: var(--raio-xs);
+}
+
+.disaster-info p {
+    color: rgba(255,255,255,0.8);
+    margin-bottom: var(--espaco-md);
+    flex: 1;
+    line-height: 1.6;
+}
+
+.disaster-info .btn {
+    align-self: flex-start;
+    margin-top: auto;
+}
+
+/* Filtros */
+.filtro-container {
+    background: var(--secudario);
+    border-radius: var(--raio-lg);
+    padding: var(--espaco-md);
+    margin-bottom: var(--espaco-lg);
+}
+
+.filtro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--espaco-md);
+}
+
+.filtro-grupo label {
+    display: block;
+    margin-bottom: var(--espaco-xs);
+    font-weight: 600;
+    color: var(--fonte);
+}
+
+.filtro-grupo select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--principal);
+    border: var(--borda-suave);
+    border-radius: var(--raio-md);
+    color: var(--fonte);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.filtro-grupo select:focus {
+    outline: none;
+    border-color: var(--destaque1);
+    box-shadow: 0 0 0 3px var(--transparente);
+}
+
+/* Estatísticas */
+.estatisticas-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--espaco-md);
+    margin: var(--espaco-lg) 0;
+}
+
+.estatistica-card {
+    background: var(--secudario);
+    border-radius: var(--raio-lg);
+    padding: var(--espaco-md);
+    text-align: center;
+    border: var(--borda-suave);
+    transition: all 0.3s ease;
+}
+
+.estatistica-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-media);
+}
+
+.estatistica-valor {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--destaque1);
+    margin-bottom: var(--espaco-xs);
+}
+
+.estatistica-rotulo {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+}
+
+/* Mapa de Risco */
+
+#mapa-risco {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.mapa-risco-container {
+    height: 400px;
+    border-radius: var(--raio-lg);
+    overflow: hidden;
+    margin: var(--espaco-lg) 0;
+    position: relative;
+    border: var(--borda-suave);
+}
+
+.mapa-risco-overlay {
+    position: absolute;
+    top: var(--espaco-md);
+    left: var(--espaco-md);
+    background: rgba(20, 30, 48, 0.9);
+    padding: var(--espaco-md);
+    border-radius: var(--raio-md);
+    z-index: 2;
+    max-width: 300px;
+    box-shadow: var(--sombra-forte);
+}
+
+.mapa-risco-legenda {
+    position: absolute;
+    bottom: var(--espaco-md);
+    left: var(--espaco-md);
+    background: rgba(20, 30, 48, 0.9);
+    padding: var(--espaco-md);
+    border-radius: var(--raio-md);
+    z-index: 1000;
+    box-shadow: var(--sombra-forte);
+}
+
+/* Modal de Detalhes */
+.modal-desastre {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: var(--espaco-md);
+}
+
+.modal-desastre.ativo {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-conteudo {
+    background: var(--principal);
+    border-radius: var(--raio-lg);
+    max-width: 800px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-fechar {
+    position: absolute;
+    top: var(--espaco-md);
+    right: var(--espaco-md);
+    background: none;
+    border: none;
+    color: var(--fonte);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.3s ease;
+}
+
+.modal-fechar:hover {
+    color: var(--destaque1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .grade-dissater {
+        grid-template-columns: 1fr;
+    }
+    
+    .filtro-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .estatisticas-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .mapa-risco-overlay,
+    .mapa-risco-legenda {
+        position: relative;
+        top: auto;
+        left: auto;
+        bottom: auto;
+        margin: var(--espaco-md) 0;
+        max-width: 100%;
+    }
+    
+    .modal-conteudo {
+        max-height: 95vh;
+    }
+}
+
+
+

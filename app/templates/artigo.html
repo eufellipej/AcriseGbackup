@@ -1,0 +1,331 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_links %}
+<title>Mecanismos de Prevenção de Terremotos</title>
+<link rel="stylesheet" href="{% static 'styles/artigo.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Barra de Progresso de Leitura -->
+<div class="progresso-leitura" id="progressoLeitura">
+    <div class="progresso-barra" id="progressoBarra"></div>
+</div>
+
+<!-- Cabeçalho do Artigo -->
+<div class="cabecalho-artigo">
+    <h2>Mecanismos de Prevenção de Terremotos</h2>
+    <p class="subtitulo-artigo">Análise das técnicas mais eficientes para minimizar danos estruturais em áreas sísmicas</p>
+    
+    <div class="metadados-artigo">
+        <div class="metadado-item">
+            <i class="fas fa-user"></i>
+            <span>Dr. Carlos Mendes</span>
+        </div>
+        <div class="metadado-item">
+            <i class="fas fa-calendar"></i>
+            <span>15 de Março, 2025</span>
+        </div>
+        <div class="metadado-item">
+            <i class="fas fa-clock"></i>
+            <span>12 min de leitura</span>
+        </div>
+        <div class="metadado-item">
+            <i class="fas fa-eye"></i>
+            <span>1.245 visualizações</span>
+        </div>
+    </div>
+</div>
+
+<!-- Conteúdo do Artigo -->
+<div class="conteudo-artigo">
+    <!-- Resumo -->
+    <div class="resumo-artigo">
+        <h3>Resumo</h3>
+        <p>
+            Este artigo aborda as técnicas mais eficientes para minimizar danos estruturais em áreas sísmicas. 
+            Através de uma análise comparativa de diferentes métodos construtivos e tecnologias de amortecimento, 
+            demonstramos como a engenharia moderna pode contribuir para a redução de fatalidades e perdas materiais 
+            durante eventos sísmicos de grande magnitude.
+        </p>
+    </div>
+
+    <!-- Seção: Introdução -->
+    <section class="secao-artigo">
+        <h3>Introdução</h3>
+        <p>
+            Terremotos são fenômenos naturais imprevisíveis que podem causar danos catastróficos. 
+            Apesar de não podermos evitar sua ocorrência, podemos mitigar seus efeitos através de 
+            projetos de engenharia inovadores. Este estudo foca nas técnicas de prevenção estrutural 
+            que têm se mostrado mais eficazes em diversas regiões do mundo.
+        </p>
+    </section>
+
+    <!-- Seção: Revisão da Literatura -->
+    <section class="secao-artigo">
+        <h3>Revisão da Literatura</h3>
+        <p>
+            Pesquisas anteriores demonstraram que edifícios convencionais são particularmente 
+            vulneráveis a forças laterais geradas por movimentos sísmicos. Estudos de Smith (2022) 
+            e Tanaka (2023) destacam a importância de sistemas de isolamento de base para 
+            estruturas críticas como hospitais e centros de emergência.
+        </p>
+        
+        <div class="citacao">
+            "A implementação de sistemas avançados de proteção sísmica deve ser prioridade 
+            em regiões de alta atividade tectônica." - Dr. Carlos Mendes
+        </div>
+    </section>
+
+    <!-- Seção: Metodologia -->
+    <section class="secao-artigo">
+        <h3>Metodologia</h3>
+        <p>
+            Realizamos simulações computacionais utilizando o software ANSYS para modelar o 
+            comportamento de três tipos de estruturas sob diferentes níveis de estresse sísmico:
+        </p>
+        
+        <ul class="lista-artigo">
+            <li>Edifício convencional sem reforços</li>
+            <li>Estrutura com amortecedores de massa sintonizados</li>
+            <li>Prédio com sistema de isolamento de base</li>
+        </ul>
+        
+        <p>
+            Os modelos foram submetidos a simulações de terremotos com magnitudes entre 
+            6.0 e 8.5 na escala Richter.
+        </p>
+    </section>
+
+    <!-- Seção: Resultados -->
+    <section class="secao-artigo">
+        <h3>Resultados</h3>
+        <p>
+            Nossos resultados mostram uma redução significativa nos danos estruturais nos 
+            edifícios com sistemas de proteção:
+        </p>
+        
+        <ul class="lista-artigo">
+            <li>Redução de 65% nas tensões estruturais em edifícios com isolamento de base</li>
+            <li>Diminuição de 40% na aceleração sentida nos andares superiores</li>
+            <li>Aumento de 300% na capacidade de dissipação de energia</li>
+        </ul>
+
+        <!-- Gráfico -->
+        <div class="grafico-container">
+            <h4>Comparação de Desempenho entre Sistemas</h4>
+            <div class="grafico-placeholder">
+                <i class="fas fa-chart-bar"></i>
+                <span>Gráfico de Comparação</span>
+            </div>
+            <p class="legenda-grafico">
+                Figura 1: Comparação da eficácia de diferentes sistemas de proteção sísmica
+            </p>
+        </div>
+    </section>
+
+    <!-- Seção: Discussão -->
+    <section class="secao-artigo">
+        <h3>Discussão</h3>
+        <p>
+            Os resultados demonstram claramente a superioridade dos sistemas de isolamento 
+            de base em situações de alto estresse sísmico. Apesar do custo inicial mais 
+            elevado (estimado em 10-15% a mais que construções convencionais), o retorno 
+            em segurança e redução de danos justifica o investimento, especialmente em 
+            zonas de alto risco.
+        </p>
+    </section>
+
+    <!-- Seção: Conclusão -->
+    <section class="secao-artigo">
+        <h3>Conclusão</h3>
+        <p>
+            A implementação de sistemas avançados de proteção sísmica deve ser prioridade 
+            em regiões de alta atividade tectônica. Recomendamos a adoção de códigos de 
+            construção mais rigorosos que incorporem estas tecnologias, especialmente para 
+            infraestruturas críticas e edifícios de grande ocupação.
+        </p>
+    </section>
+
+    <!-- Sobre o Autor -->
+    <div class="sobre-autor">
+        <div class="autor-avatar">
+            CM
+        </div>
+        <div class="autor-info">
+            <h3>Sobre o Autor</h3>
+            <p>
+                <strong>Dr. Carlos Mendes</strong> é professor titular de Engenharia Sísmica 
+                na Universidade Federal de Tecnologia. Com mais de 20 anos de experiência 
+                em projetos anti-sísmicos, liderou projetos de reconstrução em diversas 
+                áreas afetadas por terremotos.
+            </p>
+            <p>
+                <i class="fas fa-envelope"></i> cmendes@universidade.edu.br
+            </p>
+        </div>
+    </div>
+
+    <!-- Referências -->
+    <div class="referencias">
+        <h3>Referências</h3>
+        <div class="referencias-lista">
+            <div class="referencia-item">
+                <p>
+                    <strong>Smith, J. (2022).</strong> "Advanced Seismic Protection Systems". 
+                    Journal of Earthquake Engineering, 45(3), 112-129.
+                </p>
+            </div>
+            <div class="referencia-item">
+                <p>
+                    <strong>Tanaka, H. (2023).</strong> "Base Isolation Technologies in Japan". 
+                    International Conference on Seismic Safety Proceedings.
+                </p>
+            </div>
+            <div class="referencia-item">
+                <p>
+                    <strong>International Building Code (2024).</strong> 
+                    Chapter 16: Structural Design Requirements for Seismic Resistance.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ações do Artigo -->
+    <div class="acoes-artigo">
+        <button class="btn">
+            <i class="fas fa-download"></i> Baixar PDF
+        </button>
+        <button class="btn btn-outline">
+            <i class="fas fa-bookmark"></i> Salvar Artigo
+        </button>
+        <button class="btn btn-outline">
+            <i class="fas fa-print"></i> Imprimir
+        </button>
+    </div>
+
+    <!-- Compartilhamento -->
+    <div class="compartilhamento">
+        <h4>Compartilhar Artigo</h4>
+        <div class="redes-compartilhamento">
+            <div class="rede-social facebook">
+                <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="rede-social twitter">
+                <i class="fab fa-twitter"></i>
+            </div>
+            <div class="rede-social linkedin">
+                <i class="fab fa-linkedin-in"></i>
+            </div>
+            <div class="rede-social whatsapp">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <div class="rede-social email">
+                <i class="fas fa-envelope"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Artigos Relacionados -->
+    <div class="artigos-relacionados">
+        <h3>Artigos Relacionados</h3>
+        <div class="grade-relacionados">
+            <div class="card">
+                <h4>Urbanização Resiliente a Inundações</h4>
+                <p>Estratégias de planejamento urbano para reduzir impactos de cheias.</p>
+                <a href="#" class="btn btn-pequeno">Ler Artigo</a>
+            </div>
+            <div class="card">
+                <h4>Sistemas de Alerta Precoce</h4>
+                <p>Tecnologias avançadas de detecção para populações costeiras.</p>
+                <a href="#" class="btn btn-pequeno">Ler Artigo</a>
+            </div>
+            <div class="card">
+                <h4>Gestão de Crise em Erupções</h4>
+                <p>Protocolos de evacuação em áreas de risco vulcânico.</p>
+                <a href="#" class="btn btn-pequeno">Ler Artigo</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'scripts/artigo.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Progresso de leitura
+    const progressoLeitura = document.getElementById('progressoLeitura');
+    const progressoBarra = document.getElementById('progressoBarra');
+    
+    window.addEventListener('scroll', function() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        const scrolled = (scrollTop / (documentHeight - windowHeight)) * 100;
+        
+        if (scrolled > 5) {
+            progressoLeitura.classList.add('ativo');
+            progressoBarra.style.width = scrolled + '%';
+        } else {
+            progressoLeitura.classList.remove('ativo');
+        }
+    });
+    
+    // Tooltip para compartilhamento
+    const redesSociais = document.querySelectorAll('.rede-social');
+    redesSociais.forEach(rede => {
+        rede.addEventListener('click', function(e) {
+            e.preventDefault();
+            const tipo = this.classList[1];
+            const url = window.location.href;
+            const titulo = document.title;
+            
+            let shareUrl = '';
+            switch(tipo) {
+                case 'facebook':
+                    shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+                    break;
+                case 'twitter':
+                    shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(titulo)}`;
+                    break;
+                case 'linkedin':
+                    shareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(titulo)}`;
+                    break;
+                case 'whatsapp':
+                    shareUrl = `https://wa.me/?text=${encodeURIComponent(titulo + ' ' + url)}`;
+                    break;
+                case 'email':
+                    shareUrl = `mailto:?subject=${encodeURIComponent(titulo)}&body=${encodeURIComponent(url)}`;
+                    break;
+            }
+            
+            if (tipo === 'email') {
+                window.location.href = shareUrl;
+            } else {
+                window.open(shareUrl, '_blank', 'width=600,height=400');
+            }
+        });
+    });
+    
+    // Animações de entrada
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+            }
+        });
+    }, observerOptions);
+    
+    document.querySelectorAll('.secao-artigo, .grafico-container, .sobre-autor').forEach(el => {
+        observer.observe(el);
+    });
+});
+</script>
+{% endblock %}

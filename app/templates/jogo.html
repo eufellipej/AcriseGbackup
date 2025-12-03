@@ -1,0 +1,495 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_links %}
+<title>{{ jogo.titulo }} - A Crise G</title>
+<link rel="stylesheet" href="{% static 'styles/jogo.css'%}">
+{% endblock %}
+
+{% block content %}
+<div class="cabecalho-jogo text-center">
+    <h2>Jogo Educativo</h2>
+    <p class="mb-lg">Aprenda sobre desastres naturais de forma interativa e divertida</p>
+    
+    <div class="botoes-download">
+        {% if jogo.download_windows %}
+        <a href="{{ jogo.download_windows }}" class="btn btn-vermelho btn-grande" target="_blank">
+            <i class="fab fa-windows"></i> Download para Windows
+        </a>
+        {% endif %}
+        
+        {% if jogo.download_android %}
+        <a href="{{ jogo.download_android }}" class="btn btn-azul btn-grande" target="_blank">
+            <i class="fab fa-android"></i> Versão Mobile
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="layout-jogo">
+    <!-- Coluna de informações -->
+    <div class="info-jogo">
+        <h3>{{ jogo.titulo }}</h3>
+        {% if jogo.subtitulo %}
+        <p class="subtitulo-jogo">{{ jogo.subtitulo }}</p>
+        {% endif %}
+        
+        <p>{{ jogo.descricao_detalhada|default:jogo.descricao|linebreaks }}</p>
+
+        <div class="especificacoes">
+            <p><strong>Plataformas:</strong> {{ jogo.plataformas }}</p>
+            <p><strong>Idade recomendada:</strong> {{ jogo.idade_recomendada }}</p>
+            <p><strong>Desenvolvedor:</strong> {{ jogo.desenvolvedor }}</p>
+            <p><strong>Tamanho:</strong> {{ jogo.tamanho }}</p>
+            <p><strong>Versão:</strong> {{ jogo.versao }}</p>
+            {% if jogo.data_lancamento %}
+            <p><strong>Lançamento:</strong> {{ jogo.data_lancamento|date:"d/m/Y" }}</p>
+            {% endif %}
+        </div>
+
+        {% if caracteristicas %}
+        <div class="caracteristicas">
+            <h4>Características Principais</h4>
+            <div class="lista-caracteristicas">
+                {% for caracteristica in caracteristicas %}
+                <div class="caracteristica-item">
+                    <i class="{{ caracteristica.icone }}"></i>
+                    <span>{{ caracteristica.descricao }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="requisitos-container">
+            <div class="requisitos-coluna">
+                <h5>Requisitos Mínimos</h5>
+                <ul>
+                    {% for requisito in requisitos_minimos %}
+                    <li>{{ requisito.descricao }}</li>
+                    {% empty %}
+                    <li>Windows 10 64-bit</li>
+                    <li>Intel i3 ou equivalente</li>
+                    <li>4GB RAM</li>
+                    <li>Placa de vídeo com 1GB VRAM</li>
+                    <li>2GB de espaço livre</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="requisitos-coluna">
+                <h5>Requisitos Recomendados</h5>
+                <ul>
+                    {% for requisito in requisitos_recomendados %}
+                    <li>{{ requisito.descricao }}</li>
+                    {% empty %}
+                    <li>Windows 11 64-bit</li>
+                    <li>Intel i5 ou equivalente</li>
+                    <li>8GB RAM</li>
+                    <li>Placa de vídeo com 2GB VRAM</li>
+                    <li>4GB de espaço livre</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coluna de galeria -->
+    <div class="galeria-coluna">
+        <div class="galeria-jogo">
+            {% for imagem in imagens %}
+            <div class="galeria-item">
+                <img src="{{ imagem.url }}" alt="{{ imagem.legenda|default:'Imagem do jogo' }}">
+                {% if imagem.legenda %}
+                <div class="galeria-legenda">{{ imagem.legenda }}</div>
+                {% endif %}
+            </div>
+            {% empty %}
+            <!-- Imagens padrão se não houver imagens cadastradas -->
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1593113630400-ea4288922497?q=80&w=1000" alt="Cenário de terremoto">
+                <div class="galeria-legenda">Terremoto nível 7.2 - Escolhas críticas</div>
+            </div>
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?q=80&w=1000" alt="Cenário de furacão">
+                <div class="galeria-legenda">Furacão categoria 4 - Evacuação estratégica</div>
+            </div>
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1000" alt="Mapa estratégico">
+                <div class="galeria-legenda">Planejamento de rotas de fuga</div>
+            </div>
+            <div class="galeria-item">
+                <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?q=80&w=1000" alt="Inundação urbana">
+                <div class="galeria-legenda">Simulação de inundação urbana</div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="estatisticas-jogo">
+            <div class="estatistica-jogo">
+                <i class="fas fa-users"></i>
+                <div class="valor">{{ jogo.jogadores_ativos|floatformat:0 }}</div>
+                <div class="rotulo">Jogadores Ativos</div>
+            </div>
+            <div class="estatistica-jogo">
+                <i class="fas fa-star"></i>
+                <div class="valor">{{ media_avaliacoes|floatformat:1 }}</div>
+                <div class="rotulo">Avaliação Média</div>
+            </div>
+            <div class="estatistica-jogo">
+                <i class="fas fa-clock"></i>
+                <div class="valor">{{ jogo.tempo_jogo_medio }}</div>
+                <div class="rotulo">Tempo de Jogo</div>
+            </div>
+            <div class="estatistica-jogo">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="valor">{{ jogo.aprendizado_efetivo }}</div>
+                <div class="rotulo">Aprendizado Efetivo</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if atualizacoes %}
+<div class="atualizacoes">
+    <h4>Últimas Atualizações</h4>
+    {% for atualizacao in atualizacoes %}
+    <div class="atualizacao-item">
+        <strong>Versão {{ atualizacao.versao }} ({{ atualizacao.data|date:"d/m/Y" }})</strong>
+        <p>{{ atualizacao.descricao }}</p>
+        {% if atualizacao.detalhes %}
+        <i>{{ atualizacao.detalhes }}</i>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if avaliacoes_especialistas %}
+<div class="avaliacoes-container">
+    <h4>Avaliações de Especialistas</h4>
+    <div class="avaliacoes-grid">
+        {% for avaliacao in avaliacoes_especialistas %}
+        <div class="avaliacao-card">
+            <div class="perfil-avaliacao">
+                <div class="avatar-avaliacao">
+                    {% if avaliacao.usuario.imagem %}
+                    <img src="{{ avaliacao.usuario.imagem }}" alt="{{ avaliacao.usuario.nome }}">
+                    {% else %}
+                    <!-- Avatar padrão com inicial -->
+                    <div style="width: 60px; height: 60px; border-radius: 50%; background: linear-gradient(135deg, #FF6B6B, #FF8E53); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; font-weight: bold;">
+                        {{ avaliacao.usuario.nome|slice:":1"|upper }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="info-avaliacao">
+                    <h5>{{ avaliacao.usuario.nome }}</h5>
+                    <div class="especialidade">
+                        {% if avaliacao.usuario.tipo == 'especialista' %}Especialista - {% endif %}
+                        {{ avaliacao.usuario.especialidade|default:"Especialista em Desastres Naturais" }}
+                    </div>
+                </div>
+            </div>
+            <div class="conteudo-avaliacao">
+                "{{ avaliacao.texto }}"
+            </div>
+            <div class="estrelas">
+                {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= avaliacao.nota %}
+                    <i class="fas fa-star"></i>
+                    {% else %}
+                    <i class="far fa-star"></i>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if faqs_por_categoria %}
+<div class="faq-container">
+    <h4>Perguntas Frequentes</h4>
+    
+    <!-- Filtro por categoria -->
+    <div class="faq-filtros">
+        <button class="btn-filtro-faq ativo" data-categoria="todas">Todas</button>
+        {% for categoria_nome, faqs_lista in faqs_por_categoria.items %}
+        <button class="btn-filtro-faq" data-categoria="{{ categoria_nome|slugify }}">
+            {{ categoria_nome }}
+            <span class="badge-faq">{{ faqs_lista|length }}</span>
+        </button>
+        {% endfor %}
+    </div>
+    
+    <!-- Lista de FAQs por categoria -->
+    {% for categoria_nome, faqs_lista in faqs_por_categoria.items %}
+    <div class="faq-categoria" id="categoria-{{ categoria_nome|slugify }}">
+        <h5 class="categoria-titulo">{{ categoria_nome }}</h5>
+        {% for faq in faqs_lista %}
+        <div class="pergunta-item">
+            <button class="pergunta-titulo">
+                <span class="pergunta-texto">{{ faq.pergunta }}</span>
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="pergunta-resposta">
+                {{ faq.resposta|linebreaks }}
+                <div class="faq-metadata">
+                    <small>
+                        <i class="fas fa-calendar-alt"></i> 
+                        Atualizada em {{ faq.data_atualizacao|date:"d/m/Y" }}
+                        {% if faq.categoria != 'geral' %}
+                        | <i class="fas fa-tag"></i> {{ faq.get_categoria_display }}
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="form-pergunta-usuario">
+    <div class="form-header">
+        <h4>
+            <i class="fas fa-question-circle"></i>
+            Não encontrou sua dúvida?
+        </h4>
+        <p>Envie sua pergunta e nossa equipe responderá em breve.</p>
+    </div>
+    
+    <form id="form-pergunta-usuario" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="enviar_pergunta">
+        
+        <div class="form-body">
+            <div class="form-group">
+                <label for="pergunta-usuario">
+                    <i class="fas fa-comment-question"></i>
+                    Sua pergunta:
+                </label>
+                <textarea 
+                    id="pergunta-usuario" 
+                    name="pergunta" 
+                    rows="4" 
+                    placeholder="Digite sua pergunta sobre o jogo aqui..." 
+                    required
+                    maxlength="500"></textarea>
+                <div class="contador-caracteres">
+                    <span id="contador-pergunta">0</span>/500 caracteres
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email-pergunta">
+                    <i class="fas fa-envelope"></i>
+                    Seu email para resposta:
+                </label>
+                <input 
+                    type="email" 
+                    id="email-pergunta" 
+                    name="email" 
+                    value="{{ user_info.email|default:'' }}" 
+                    placeholder="seu@email.com" 
+                    required>
+            </div>
+            
+            {% if not user_info.is_authenticated %}
+            <div class="alert-info">
+                <i class="fas fa-info-circle"></i>
+                Você não está logado. Sua pergunta será registrada como anônima.
+            </div>
+            {% endif %}
+            
+            <div class="form-footer">
+                <button type="submit" class="btn btn-success btn-full">
+                    <i class="fas fa-paper-plane"></i> Enviar Pergunta
+                </button>
+                <p class="form-nota">
+                    <small>
+                        <i class="fas fa-shield-alt"></i>
+                        Sua pergunta será revisada pela nossa equipe. 
+                        As melhores perguntas podem ser publicadas como FAQ para ajudar outros usuários.
+                    </small>
+                </p>
+            </div>
+        </div>
+    </form>
+    
+    <!-- Status das perguntas anteriores (apenas para usuários logados) -->
+    {% if user_info.is_authenticated %}
+    <div class="minhas-perguntas" id="minhas-perguntas">
+        <button class="btn-toggle-perguntas">
+            <i class="fas fa-history"></i>
+            Minhas Perguntas Anteriores
+            <i class="fas fa-chevron-down"></i>
+        </button>
+        
+        <div class="perguntas-lista" style="display: none;">
+            <div class="perguntas-header">
+                <span>Pergunta</span>
+                <span>Status</span>
+                <span>Data</span>
+            </div>
+            <div class="perguntas-loading">
+                <i class="fas fa-spinner fa-spin"></i> Carregando suas perguntas...
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="text-center mt-xl">
+    <h4>Comece sua Jornada de Sobrevivência</h4>
+    <p class="mb-lg">Baixe agora e aprenda a proteger a si mesmo e sua comunidade</p>
+    <div class="botoes-download">
+        {% if jogo.download_windows %}
+        <a href="{{ jogo.download_windows }}" class="btn btn-vermelho btn-grande" target="_blank">
+            <i class="fab fa-windows"></i> Download para Windows
+        </a>
+        {% endif %}
+        
+        {% if jogo.download_android %}
+        <a href="{{ jogo.download_android }}" class="btn btn-azul btn-grande" target="_blank">
+            <i class="fab fa-android"></i> Versão Mobile
+        </a>
+        {% endif %}
+        
+        {% if jogo.download_ios %}
+        <a href="{{ jogo.download_ios }}" class="btn btn-outline btn-grande" target="_blank">
+            <i class="fab fa-apple"></i> Versão iOS
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'scripts/jogo.js' %}"></script>
+<script>
+// Funcionalidades extras para o jogo
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar FAQ
+    const faqQuestions = document.querySelectorAll('.pergunta-titulo');
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            
+            // Alternar classe ativa
+            this.classList.toggle('ativo');
+            answer.classList.toggle('ativo');
+            
+            // Alternar ícone
+            if (this.classList.contains('ativo')) {
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            } else {
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            }
+        });
+    });
+    
+    // Formulário de pergunta
+    const formPergunta = document.getElementById('form-pergunta-jogo');
+    if (formPergunta) {
+        formPergunta.addEventListener('submit', function(e) {
+            // Validação do formulário
+            const pergunta = document.getElementById('pergunta-usuario').value;
+            const email = document.getElementById('email-pergunta').value;
+            
+            if (!pergunta.trim()) {
+                e.preventDefault();
+                alert('Por favor, digite sua pergunta.');
+                return false;
+            }
+            
+            if (!email.trim()) {
+                e.preventDefault();
+                alert('Por favor, digite seu email.');
+                return false;
+            }
+            
+            // Mostrar mensagem de carregamento
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+        });
+    }
+    
+    // Inicializar galeria
+    const galeriaItens = document.querySelectorAll('.galeria-item');
+    galeriaItens.forEach(item => {
+        item.addEventListener('click', function() {
+            const imgSrc = this.querySelector('img').src;
+            const legenda = this.querySelector('.galeria-legenda')?.textContent || '';
+            
+            // Criar modal para visualizar imagem
+            const modalHTML = `
+                <div class="modal-galeria" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; display: flex; align-items: center; justify-content: center;">
+                    <div style="max-width: 90%; max-height: 90%;">
+                        <img src="${imgSrc}" style="max-width: 100%; max-height: 80vh; border-radius: 8px;">
+                        ${legenda ? `<div style="color: white; text-align: center; margin-top: 10px;">${legenda}</div>` : ''}
+                        <button onclick="this.parentElement.parentElement.remove()" style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: white; font-size: 2rem; cursor: pointer;">×</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', modalHTML);
+        });
+    });
+});
+
+// Funções para demo interativo
+function moverPersonagem(direcao) {
+    const personagem = document.querySelector('.personagem-demo');
+    const resultado = document.getElementById('resultado-demo');
+    
+    if (direcao === 'esquerda') {
+        personagem.style.transform = 'translateX(-50px)';
+        resultado.textContent = 'Movendo para área segura! ✔️';
+        resultado.style.color = '#4CAF50';
+    } else {
+        personagem.style.transform = 'translateX(50px)';
+        resultado.textContent = 'Cuidado! Você está se aproximando do perigo! ⚠️';
+        resultado.style.color = '#FF9800';
+    }
+    
+    resultado.style.display = 'block';
+    
+    setTimeout(() => {
+        personagem.style.transform = 'translateX(0)';
+    }, 1000);
+    
+    setTimeout(() => {
+        resultado.style.display = 'none';
+    }, 3000);
+}
+
+function tomarDecisao() {
+    const resultado = document.getElementById('resultado-demo');
+    const decisoes = [
+        "Você escolheu buscar abrigo sob uma mesa resistente. Boa decisão! 🛡️",
+        "Você optou por correr para fora do prédio. Cuidado com os destroços! 🏃",
+        "Você manteve a calma e ajudou outras pessoas. Excelente liderança! 👥",
+        "Você se esqueceu do kit de emergência. Lembre-se dele na próxima! 🎒",
+        "Você acionou o alarme de incêndio. Procedimento correto! 🔔",
+        "Você se abrigou em um local alto. Ótima escolha para inundação! 🏔️"
+    ];
+    
+    const decisaoAleatoria = decisoes[Math.floor(Math.random() * decisoes.length)];
+    resultado.textContent = decisaoAleatoria;
+    resultado.style.color = '#2196F3';
+    resultado.style.display = 'block';
+    
+    setTimeout(() => {
+        resultado.style.display = 'none';
+    }, 4000);
+}
+</script>
+{% endblock %}

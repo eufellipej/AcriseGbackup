@@ -1,0 +1,342 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_links %}
+<title>Painel Administrativo</title>
+<link rel="stylesheet" href="{% static 'styles/admin.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-admin">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-logo">
+            <div class="icon" id="icon-pag"></div>
+            <div>
+                <h3>Painel Admin</h3>
+                <p style="font-size: 0.9rem; opacity: 0.7;">A Crise G</p>
+            </div>
+        </div>
+        
+        <nav class="navegacao-admin">
+            <button class="item-navegacao active" data-section="dashboard">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </button>
+            <button class="item-navegacao" data-section="users">
+                <i class="fas fa-users"></i> Usuários
+            </button>
+            <button class="item-navegacao" data-section="articles">
+                <i class="fas fa-newspaper"></i> Artigos
+            </button>
+            <button class="item-navegacao" data-section="disasters">
+                <i class="fas fa-tornado"></i> Desastres
+            </button>
+            <button class="item-navegacao" data-section="requests">
+                <i class="fas fa-envelope"></i> Solicitações
+            </button>
+            <button class="item-navegacao" data-section="settings">
+                <i class="fas fa-cog"></i> Configurações
+            </button>
+            <button class="item-navegacao" data-section="reports">
+                <i class="fas fa-chart-bar"></i> Relatórios
+            </button>
+        </nav>
+        
+        <div class="status-admin">
+            <div class="status-card">
+                <div class="rotulo">Sessão Ativa</div>
+                <div class="status-info">
+                    <div class="indicador-status"></div>
+                    <span>Administrador</span>
+                </div>
+                <div class="ultimo-acesso">Último acesso: Hoje</div>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Conteúdo Principal -->
+    <main class="admin-conteudo">
+        <div class="admin-header">
+            <h2>Dashboard Administrativo</h2>
+            <div class="barra-pesquisa-admin">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar usuários, artigos...">
+            </div>
+        </div>
+        
+        <!-- Estatísticas -->
+        <div class="estatisticas-grid">
+            <div class="estatistica-card">
+                <div class="valor-estatistica">156</div>
+                <div class="rotulo-estatistica">Usuários Totais</div>
+                <div class="variacao-estatistica positiva">
+                    <i class="fas fa-arrow-up"></i> 12% este mês
+                </div>
+                <div class="icone-estatistica">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+            
+            <div class="estatistica-card">
+                <div class="valor-estatistica">24</div>
+                <div class="rotulo-estatistica">Artigos Publicados</div>
+                <div class="variacao-estatistica positiva">
+                    <i class="fas fa-arrow-up"></i> 8% este mês
+                </div>
+                <div class="icone-estatistica">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+            </div>
+            
+            <div class="estatistica-card">
+                <div class="valor-estatistica">5</div>
+                <div class="rotulo-estatistica">Solicitações Pendentes</div>
+                <div class="variacao-estatistica negativa">
+                    <i class="fas fa-arrow-down"></i> 2 novas hoje
+                </div>
+                <div class="icone-estatistica">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+            
+            <div class="estatistica-card">
+                <div class="valor-estatistica">98%</div>
+                <div class="rotulo-estatistica">Taxa de Atividade</div>
+                <div class="variacao-estatistica positiva">
+                    <i class="fas fa-arrow-up"></i> 2% este mês
+                </div>
+                <div class="icone-estatistica">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gráficos -->
+        <div class="graficos-container">
+            <div class="grafico-card">
+                <div class="cabecalho-grafico">
+                    <h3>Estatísticas de Usuários</h3>
+                    <div class="controles-grafico">
+                        <select class="seletor-periodo" id="chartPeriod">
+                            <option>Últimos 7 dias</option>
+                            <option>Últimos 30 dias</option>
+                            <option>Últimos 90 dias</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="container-grafico">
+                    <canvas id="usersChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="grafico-card">
+                <div class="cabecalho-grafico">
+                    <h3>Artigos por Categoria</h3>
+                    <div class="controles-grafico">
+                        <select class="seletor-periodo" id="articlesPeriod">
+                            <option>Últimos 30 dias</option>
+                            <option>Últimos 90 dias</option>
+                            <option>Últimos 12 meses</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="container-grafico">
+                    <canvas id="articlesChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Filtros -->
+        <div class="filtros-admin">
+            <div class="grupo-filtro">
+                <label for="filterRole">Filtrar por Função</label>
+                <select id="filterRole">
+                    <option value="all">Todas as Funções</option>
+                    <option value="admin">Administrador</option>
+                    <option value="editor">Editor</option>
+                    <option value="moderator">Moderador</option>
+                    <option value="user">Usuário</option>
+                </select>
+            </div>
+            
+            <div class="grupo-filtro">
+                <label for="filterStatus">Filtrar por Status</label>
+                <select id="filterStatus">
+                    <option value="all">Todos os Status</option>
+                    <option value="active">Ativo</option>
+                    <option value="inactive">Inativo</option>
+                    <option value="pending">Pendente</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Tabelas -->
+        <div class="tabelas-container">
+            <h3>Gerenciamento de Usuários</h3>
+            <div class="table-container">
+                <table class="tabela-admin">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Função</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>João Silva</td>
+                            <td>joao@exemplo.com</td>
+                            <td><span class="badge-funcao badge-admin">Admin</span></td>
+                            <td><span style="color:#4CAF50">Ativo</span></td>
+                            <td>
+                                <div class="botoes-acao">
+                                    <button class="btn-acao btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-acao btn-excluir">
+                                        <i class="fas fa-trash"></i> Remover
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Maria Souza</td>
+                            <td>maria@exemplo.com</td>
+                            <td><span class="badge-funcao badge-editor">Editor</span></td>
+                            <td><span style="color:#4CAF50">Ativo</span></td>
+                            <td>
+                                <div class="botoes-acao">
+                                    <button class="btn-acao btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-acao btn-excluir">
+                                        <i class="fas fa-trash"></i> Remover
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Carlos Oliveira</td>
+                            <td>carlos@exemplo.com</td>
+                            <td><span class="badge-funcao badge-moderador">Moderador</span></td>
+                            <td><span style="color:#FFC107">Pendente</span></td>
+                            <td>
+                                <div class="botoes-acao">
+                                    <button class="btn-acao btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-acao btn-excluir">
+                                        <i class="fas fa-trash"></i> Remover
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Ana Pereira</td>
+                            <td>ana@exemplo.com</td>
+                            <td><span class="badge-funcao badge-usuario">Usuário</span></td>
+                            <td><span style="color:#4CAF50">Ativo</span></td>
+                            <td>
+                                <div class="botoes-acao">
+                                    <button class="btn-acao btn-editar">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </button>
+                                    <button class="btn-acao btn-excluir">
+                                        <i class="fas fa-trash"></i> Remover
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="paginacao-admin">
+                <button class="btn-paginacao"><i class="fas fa-chevron-left"></i></button>
+                <button class="btn-paginacao ativo">1</button>
+                <button class="btn-paginacao">2</button>
+                <button class="btn-paginacao">3</button>
+                <button class="btn-paginacao"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div class="tabelas-container">
+            <h3>Solicitações de Acesso</h3>
+            <div class="table-container">
+                <table class="tabela-admin">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Usuário</th>
+                            <th>Tipo de Acesso</th>
+                            <th>Data</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>Pedro Santos</td>
+                            <td>Editor de Conteúdo</td>
+                            <td>18/07/2025</td>
+                            <td><span style="color:#FFC107">Pendente</span></td>
+                            <td>
+                                <div class="botoes-acao">
+                                    <button class="btn-acao btn-aprovar">
+                                        <i class="fas fa-check"></i> Aprovar
+                                    </button>
+                                    <button class="btn-acao btn-rejeitar">
+                                        <i class="fas fa-times"></i> Recusar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Juliana Costa</td>
+                            <td>Moderador de Artigos</td>
+                            <td>17/07/2025</td>
+                            <td><span style="color:#FFC107">Pendente</span></td>
+                            <td>
+                                <div class="botoes-acao">
+                                    <button class="btn-acao btn-aprovar">
+                                        <i class="fas fa-check"></i> Aprovar
+                                    </button>
+                                    <button class="btn-acao btn-rejeitar">
+                                        <i class="fas fa-times"></i> Recusar
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="modal-admin" id="modal-admin">
+    <div class="conteudo-modal">
+        <div class="cabecalho-modal">
+            <h3 id="modal-titulo"></h3>
+            <button class="btn-fechar-modal">&times;</button>
+        </div>
+        <div id="modal-corpo"></div>
+    </div>
+</div>
+
+<div class="notificacoes-admin" id="notificacoes-admin"></div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'scripts/admin.js' %}"></script>
+{% endblock %}

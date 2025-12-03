@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - A Crise G{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'styles/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="login-page">
+    <div class="form-container">
+        <!-- Cabeçalho -->
+        <div class="section-header">
+            <h2>Login / Cadastro</h2>
+            <p>Acesse sua conta ou crie uma nova</p>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="form-tabs">
+            <button class="form-tab active" data-tab="login">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="form-tab" data-tab="register">
+                <i class="fas fa-user-plus"></i> Cadastro
+            </button>
+        </div>
+        
+        <!-- Mensagens -->
+        <div class="alert-message" id="alert-message"></div>
+        
+        <!-- Conteúdo Login -->
+        <div class="form-content active" id="login-content">
+            <form id="login-form">
+                <!-- Tipo de Usuário -->
+                <div class="user-type-tabs">
+                    <button type="button" class="user-type-tab active" data-type="user">
+                        <i class="fas fa-user"></i> Usuário
+                    </button>
+                    <button type="button" class="user-type-tab" data-type="admin">
+                        <i class="fas fa-user-shield"></i> Servidor
+                    </button>
+                </div>
+                
+                <!-- Campos do Formulário -->
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Senha</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="Sua senha" required>
+                        <button type="button" class="password-toggle" id="login-password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Lembrar-me e Esqueci Senha -->
+                <div class="form-options">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember-me">
+                        <label for="remember-me">Lembrar-me</label>
+                    </div>
+                    <a href="#" id="forgot-password">Esqueceu sua senha?</a>
+                </div>
+                
+                <!-- Botão de Login -->
+                <button type="submit" class="btn btn-full">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+                
+                <!-- Divisor -->
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+                
+                <!-- Login Social -->
+                <div class="social-login">
+                    <button type="button" class="btn-social google">
+                        <i class="fab fa-google"></i> Continuar com Google
+                    </button>
+                    <button type="button" class="btn-social facebook">
+                        <i class="fab fa-facebook-f"></i> Continuar com Facebook
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Conteúdo Cadastro -->
+        <div class="form-content" id="register-content">
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Nome Completo</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="register-name" placeholder="Seu nome completo" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="register-email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Senha</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-password" placeholder="Crie uma senha forte" required>
+                        <button type="button" class="password-toggle" id="register-password-toggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="password-strength-bar"></div>
+                        <div class="password-strength-text" id="password-strength-text"></div>
+                    </div>
+                    <div class="password-requirements">
+                        <small>A senha deve conter pelo menos 8 caracteres, uma letra maiúscula, uma minúscula e um número.</small>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-confirm">Confirmar Senha</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="register-confirm" placeholder="Confirme sua senha" required>
+                    </div>
+                </div>
+                
+                <!-- Termos e Condições -->
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="accept-terms" required>
+                        <label for="accept-terms">
+                            Concordo com os <a href="#">Termos de Uso</a> e <a href="#">Política de Privacidade</a>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Botão de Cadastro -->
+                <button type="submit" class="btn btn-full">
+                    <i class="fas fa-user-plus"></i> Criar Conta
+                </button>
+                
+                <p class="text-center mt-3">
+                    Já tem uma conta? <a href="#" class="switch-to-login">Faça login</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'scripts/login.js' %}"></script>
+{% endblock %}

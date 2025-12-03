@@ -1,0 +1,527 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="escuro">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portal educativo sobre prevenção e preparação para desastres naturais">
+    <meta name="keywords" content="desastres naturais, prevenção, educação, terremoto, furacão, tsunami">
+    <meta name="author" content="A Crise G">
+    
+    <title>{% block title %}A Crise G - Portal de Desastres Naturais{% endblock %}</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/icon-pag.png' %}" type="image/png" />
+    
+    <!-- Fontes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" />
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <!-- Leaflet CSS (para mapas) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+    <!-- Estilos do Sistema -->
+    <link rel="stylesheet" href="{% static 'styles/geral.css' %}" />
+    
+    <!-- Estilos Específicos da Página -->
+    {% block extra_links %}{% endblock %}
+    
+    <!-- Meta Tags para Redes Sociais -->
+    <meta property="og:title" content="A Crise G - Portal de Desastres Naturais">
+    <meta property="og:description" content="Sua fonte confiável de informações sobre prevenção, preparação e resposta a desastres naturais.">
+    <meta property="og:image" content="{% static 'images/og-image.jpg' %}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:type" content="website">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="A Crise G - Portal de Desastres Naturais">
+    <meta name="twitter:description" content="Sua fonte confiável de informações sobre prevenção, preparação e resposta a desastres naturais.">
+    <meta name="twitter:image" content="{% static 'images/twitter-image.jpg' %}">
+    
+    <!-- Estilos Inline Críticos -->
+    <style>
+        /* Estilos críticos para carregamento inicial */
+        .carregando {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .carregado {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        /* Spinner de carregamento */
+        #loading-spinner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--principal);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--transparente);
+            border-top-color: var(--destaque1);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="carregando">
+    <!-- Spinner de Carregamento -->
+    <div id="loading-spinner">
+        <div class="spinner"></div>
+        <p>Carregando portal...</p>
+    </div>
+    
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="banner">
+                <a href="{% url 'index' %}" class="icon" id="icon-pag" aria-label="Logo A Crise G"></a>
+                <a href="{% url 'index' %}">
+                    <h1>A Crise G</h1>
+                </a>
+            </div>
+            
+            <div class="conter-nav">
+                <a href="{% url 'index' %}" class="bola {% if request.resolver_match.url_name == 'index' %}ativo{% endif %}">
+                    <i class="fas fa-home"></i> Inicio
+                </a>
+                
+                <a href="{% url 'desastres' %}" class="bola {% if request.resolver_match.url_name == 'desastres' %}ativo{% endif %}">
+                    <i class="fas fa-tornado"></i> Desastres
+                </a>
+                
+                <a href="{% url 'artigos' %}" class="bola {% if request.resolver_match.url_name == 'artigos' %}ativo{% endif %}">
+                    <i class="fas fa-newspaper"></i> Artigos
+                </a>
+                
+                <a href="{% url 'jogo' %}" class="bola {% if request.resolver_match.url_name == 'jogo' %}ativo{% endif %}">
+                    <i class="fas fa-gamepad"></i> Jogo
+                </a>
+                
+                <!-- Botão de Tema -->
+                <!-- <button class="botao-tema" aria-label="Alternar tema">
+                    <i class="fas fa-moon icon-lua"></i>
+                    <i class="fas fa-sun icon-sol"></i>
+                </button> -->
+                
+                <!-- Configurações -->
+                <!-- <a href="#" class="engrenagem" id="configuracoes-toggle" aria-label="Configurações">
+                    <i class="fas fa-cog"></i>
+                </a> -->
+                
+                <!-- Menu de Usuário -->
+                <!-- Menu de Usuário -->
+                <!-- Menu de Usuário -->
+                <div class="lista">
+                    <a href="#" class="user-icon" aria-label="Menu do usuário">
+                        <i class="fas fa-user"></i>
+                        {% if user_info.is_authenticated %}
+                            <span class="user-name">{{ user_info.nome }}</span>
+                        {% endif %}
+                    </a>
+                    <div class="lista-content">
+                        {% if user_info.tipo == 'admin' or user_info.is_superuser %}
+                            <a href="/admin/">
+                                <i class="fas fa-crown"></i> Área Admin
+                            </a>
+                        {% endif %}
+                        
+                        {% if user_info.is_authenticated %}
+                            <a href="{% url 'admin_personalizado' %}">
+                                <i class="fas fa-tools"></i> Manutenção
+                            </a>
+                            <a href="{% url 'usuario' %}">
+                                <i class="fas fa-user-circle"></i> Perfil
+                            </a>
+                            <a href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt"></i> Sair
+                            </a>
+                        {% else %}
+                            <a href="{% url 'login' %}">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </a>
+                            <a href="{% url 'login' %}?tab=register">
+                                <i class="fas fa-user-plus"></i> Cadastro
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Configurações Rápidas (modal) -->
+    <div class="modal" id="modal-configuracoes">
+        <div class="modal-conteudo">
+            <div class="modal-cabecalho">
+                <h3>Configurações</h3>
+                <button class="modal-fechar" data-modal-fechar="configuracoes">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-corpo">
+                <div class="config-item">
+                    <label for="tamanho-fonte">Tamanho da Fonte</label>
+                    <select id="tamanho-fonte">
+                        <option value="pequeno">Pequeno</option>
+                        <option value="medio" selected>Médio</option>
+                        <option value="grande">Grande</option>
+                    </select>
+                </div>
+                
+                <div class="config-item">
+                    <label for="reduzir-animacoes">
+                        <input type="checkbox" id="reduzir-animacoes">
+                        Reduzir animações
+                    </label>
+                </div>
+                
+                <div class="config-item">
+                    <label for="alto-contraste">
+                        <input type="checkbox" id="alto-contraste">
+                        Alto contraste
+                    </label>
+                </div>
+            </div>
+            <div class="modal-rodape">
+                <button class="btn" data-modal-fechar="configuracoes">Aplicar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Mensagens do Sistema -->
+        {% if messages %}
+        <div class="mensagens-container">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-4" role="alert">
+                {% if message.tags == 'success' %}
+                    <i class="fas fa-check-circle"></i>
+                {% elif message.tags == 'error' %}
+                    <i class="fas fa-exclamation-circle"></i>
+                {% elif message.tags == 'warning' %}
+                    <i class="fas fa-exclamation-triangle"></i>
+                {% else %}
+                    <i class="fas fa-info-circle"></i>
+                {% endif %}
+                {{ message }}
+                <button type="button" class="btn-fechar" data-bs-dismiss="alert" aria-label="Fechar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Conteúdo da Página -->
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <!-- Seção Sobre -->
+            <div class="footer-section">
+                <h3 class="cabecario-sessao">
+                    <i class="fas fa-info-circle"></i> A Crise G
+                </h3>
+                <p>
+                    Sua fonte confiável de informações sobre prevenção, preparação e resposta a desastres naturais.
+                </p>
+                <div class="links">
+                    <a href="#" aria-label="Facebook" data-tooltip="Siga-nos no Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" aria-label="Twitter" data-tooltip="Siga-nos no Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" aria-label="Instagram" data-tooltip="Siga-nos no Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" aria-label="YouTube" data-tooltip="Inscreva-se no YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Links Rápidos -->
+            <div class="footer-section">
+                <h3 class="cabecario-sessao">
+                    <i class="fas fa-bolt"></i> Links Rápidos
+                </h3>
+                <ul>
+                    <li>
+                        <a href="{% url 'index' %}">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'desastres' %}">
+                            <i class="fas fa-tornado"></i> Tipos de Desastres
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'artigos' %}">
+                            <i class="fas fa-book"></i> Artigos Científicos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'jogo' %}">
+                            <i class="fas fa-gamepad"></i> Jogo Educativo
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Suporte -->
+            <div class="footer-section">
+                <h3 class="cabecario-sessao">
+                    <i class="fas fa-headset"></i> Suporte
+                </h3>
+                <ul>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-question-circle"></i> Perguntas Frequentes
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-graduation-cap"></i> Tutoriais
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-headset"></i> Contato Técnico
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-shield-alt"></i> Política de Privacidade
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Contato -->
+            <div class="footer-section">
+                <h3 class="cabecario-sessao">
+                    <i class="fas fa-envelope"></i> Contato
+                </h3>
+                <ul>
+                    <li>
+                        <i class="fas fa-envelope"></i> contato@acriseg.org
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i> (11) 99999-8888
+                    </li>
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i> São Paulo, SP - Brasil
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i> Seg-Sex: 9h-18h
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Direitos Autorais -->
+        <div class="footer-creditos">
+            <p>&copy; 2025 A Crise G. Todos os direitos reservados.</p>
+            <p class="sublime">
+                Este jogo é um simulador educativo e não substitui treinamentos oficiais de defesa civil.
+            </p>
+        </div>
+    </footer>
+    
+    <!-- Botão Voltar ao Topo -->
+    <a href="#" class="back-to-top" aria-label="Voltar ao topo">
+        <i class="fas fa-chevron-up"></i>
+    </a>
+    
+    <!-- Container de Notificações -->
+    <div id="notificacoes-container"></div>
+    
+    <!-- Scripts -->
+    <!-- Bootstrap Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Leaflet (para mapas) -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Chart.js (para gráficos) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Scripts do Sistema -->
+    <script src="{% static 'scripts/geral.js' %}"></script>
+    
+    <!-- Scripts Específicos da Página -->
+    {% block extra_scripts %}{% endblock %}
+    
+    <!-- Script de Inicialização -->
+    <script>
+        // Aguardar carregamento completo da página
+        window.addEventListener('load', function() {
+            // Esconder spinner de carregamento
+            const spinner = document.getElementById('loading-spinner');
+            spinner.style.opacity = '0';
+            spinner.style.visibility = 'hidden';
+            
+            // Mostrar conteúdo
+            document.body.classList.remove('carregando');
+            document.body.classList.add('carregado');
+            
+            // Inicializar funcionalidades específicas
+            inicializarFuncionalidadesBase();
+        });
+        
+        function inicializarFuncionalidadesBase() {
+            // Configurações Rápidas
+            const configuracoesToggle = document.getElementById('configuracoes-toggle');
+            const modalConfiguracoes = document.getElementById('modal-configuracoes');
+            
+            if (configuracoesToggle && modalConfiguracoes) {
+                configuracoesToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    modalConfiguracoes.classList.add('ativo');
+                });
+            }
+            
+            // Menu de usuário - abrir página de cadastro
+            const linksCadastro = document.querySelectorAll('[data-tab="register"]');
+            linksCadastro.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.location.pathname !== '/login/') {
+                        e.preventDefault();
+                        window.location.href = '/login/?tab=register';
+                    }
+                });
+            });
+            
+            // Acessibilidade - tecla Tab
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('usando-teclado');
+                }
+            });
+            
+            document.addEventListener('mousedown', function() {
+                document.body.classList.remove('usando-teclado');
+            });
+            
+            // Detectar preferências do sistema
+            const reduzirAnimacoes = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (reduzirAnimacoes.matches) {
+                document.documentElement.setAttribute('data-reduzir-animacoes', 'true');
+            }
+            
+            // Detectar tema do sistema
+            const temaSistema = window.matchMedia('(prefers-color-scheme: dark)');
+            if (!localStorage.getItem('tema') && temaSistema.matches) {
+                document.documentElement.setAttribute('data-tema', 'escuro');
+            }
+        }
+        
+        // Exportar funções úteis para uso global
+        window.utils = {
+            formatarData: function(data) {
+                return new Date(data).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+            },
+            
+            formatarHora: function(data) {
+                return new Date(data).toLocaleTimeString('pt-BR', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            },
+            
+            copiarTexto: function(texto) {
+                navigator.clipboard.writeText(texto).then(() => {
+                    if (window.CriseG && window.CriseG.mostrarNotificacao) {
+                        window.CriseG.mostrarNotificacao('Texto copiado para a área de transferência!', 'sucesso');
+                    }
+                }).catch(err => {
+                    console.error('Erro ao copiar:', err);
+                    if (window.CriseG && window.CriseG.mostrarNotificacao) {
+                        window.CriseG.mostrarNotificacao('Erro ao copiar texto', 'erro');
+                    }
+                });
+            },
+            
+            debounce: function(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+        };
+    </script>
+    
+    <!-- Analytics (opcional) -->
+    <script>
+        // Exemplo de código de analytics
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXX-Y');
+    </script>
+</body>
+</html>
+
+{% comment %}
+    Como usar este template base:
+    
+    {% extends 'base.html' %}
+    
+    {% block title %}Título da Página{% endblock %}
+    
+    {% block extra_links %}
+        <link rel="stylesheet" href="{% static 'styles/nome-da-pagina.css' %}">
+    {% endblock %}
+    
+    {% block content %}
+        <!-- Conteúdo da página aqui -->
+    {% endblock %}
+    
+    {% block extra_scripts %}
+        <script src="{% static 'scripts/nome-da-pagina.js' %}"></script>
+    {% endblock %}
+{% endcomment %}

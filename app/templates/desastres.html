@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_links %}
+<title>Tipos de Desastres Naturais - A Crise G</title>
+<link rel="stylesheet" href="{% static 'styles/desastres.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="cabecario-sessao">
+    <h2>Tipos de Desastres Naturais</h2>
+    <p>Selecione para mais informações</p>
+</div>
+
+<!-- Filtros -->
+<div class="filtro-container">
+    <div class="filtro-grid">
+        <div class="filtro-grupo">
+            <label for="filtro-tipo">Filtrar por Tipo</label>
+            <select id="filtro-tipo">
+                <option value="todos">Todos os Tipos</option>
+                <option value="terremoto">Terremoto</option>
+                <option value="furacao">Furacão</option>
+                <option value="vulcao">Erupção Vulcânica</option>
+                <option value="tsunami">Tsunami</option>
+                <option value="inundacao">Inundação</option>
+                <option value="deslizamento">Deslizamento</option>
+            </select>
+        </div>
+        
+        <div class="filtro-grupo">
+            <label for="filtro-risco">Filtrar por Risco</label>
+            <select id="filtro-risco">
+                <option value="todos">Todos os Riscos</option>
+                <option value="extremo">Extremo</option>
+                <option value="alto">Alto</option>
+                <option value="medio">Médio</option>
+                <option value="baixo">Baixo</option>
+            </select>
+        </div>
+        
+        <div class="filtro-grupo">
+            <label for="filtro-ordem">Ordenar por</label>
+            <select id="filtro-ordem">
+                <option value="nome">Nome (A-Z)</option>
+                <option value="risco">Nível de Risco</option>
+                <option value="frequencia">Frequência</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- Estatísticas -->
+<div class="estatisticas-container">
+    <div class="estatistica-card">
+        <div class="estatistica-valor">6</div>
+        <div class="estatistica-rotulo">Tipos de Desastres</div>
+    </div>
+    
+    <div class="estatistica-card">
+        <div class="estatistica-valor">156</div>
+        <div class="estatistica-rotulo">Ocorrências em 2025</div>
+    </div>
+    
+    <div class="estatistica-card">
+        <div class="estatistica-valor">42%</div>
+        <div class="estatistica-rotulo">Aumento na Frequência</div>
+    </div>
+    
+    <div class="estatistica-card">
+        <div class="estatistica-valor">12</div>
+        <div class="estatistica-rotulo">Países Afetados</div>
+    </div>
+</div>
+
+<!-- Grade de Desastres -->
+<div class="grade-dissater">
+    <div class="disaster-card" data-tipo="terremoto" data-risco="extremo">
+        <div class="disaster-icon" style="background: linear-gradient(45deg, #e74c3c, #c0392b);">
+            <i class="fas fa-house-damage"></i>
+        </div>
+        <div class="disaster-info">
+            <h3>Terremoto</h3>
+            <p>Tremores súbitos da superfície terrestre causados pela liberação de energia no interior da Terra.</p>
+            <a href="{% url 'desastre' %}" class="btn btn-outline">Ver detalhes</a>
+        </div>
+    </div>
+
+    <div class="disaster-card" data-tipo="furacao" data-risco="alto">
+        <div class="disaster-icon" style="background: linear-gradient(45deg, #3498db, #2980b9);">
+            <i class="fas fa-wind"></i>
+        </div>
+        <div class="disaster-info">
+            <h3>Furacão</h3>
+            <p>Sistema de tempestades com ventos circulares que se formam sobre águas oceânicas quentes.</p>
+            <a href="#" class="btn btn-outline">Ver detalhes</a>
+        </div>
+    </div>
+
+    <div class="disaster-card" data-tipo="vulcao" data-risco="medio">
+        <div class="disaster-icon" style="background: linear-gradient(45deg, #f39c12, #d35400);">
+            <i class="fas fa-fire"></i>
+        </div>
+        <div class="disaster-info">
+            <h3>Erupção Vulcânica</h3>
+            <p>Liberação de lava, cinzas e gases vulcânicos através de aberturas na crosta terrestre.</p>
+            <a href="#" class="btn btn-outline">Ver detalhes</a>
+        </div>
+    </div>
+
+    <div class="disaster-card" data-tipo="tsunami" data-risco="alto">
+        <div class="disaster-icon" style="background: linear-gradient(45deg, #27ae60, #229954);">
+            <i class="fas fa-water"></i>
+        </div>
+        <div class="disaster-info">
+            <h3>Tsunami</h3>
+            <p>Série de ondas oceânicas causadas por deslocamentos submarinos como terremotos ou erupções.</p>
+            <a href="#" class="btn btn-outline">Ver detalhes</a>
+        </div>
+    </div>
+
+    <div class="disaster-card" data-tipo="inundacao" data-risco="medio">
+        <div class="disaster-icon" style="background: linear-gradient(45deg, #9b59b6, #8e44ad);">
+            <i class="fas fa-house-flood-water"></i>
+        </div>
+        <div class="disaster-info">
+            <h3>Inundação</h3>
+            <p>Transbordamento de água em áreas normalmente secas, causada por chuvas intensas ou rompimento de barragens.</p>
+            <a href="#" class="btn btn-outline">Ver detalhes</a>
+        </div>
+    </div>
+
+    <div class="disaster-card" data-tipo="deslizamento" data-risco="baixo">
+        <div class="disaster-icon" style="background: linear-gradient(45deg, #1abc9c, #16a085);">
+            <i class="fas fa-mountain-sun"></i>
+        </div>
+        <div class="disaster-info">
+            <h3>Deslizamento</h3>
+            <p>Movimento de massa de terra, rochas ou detritos encosta abaixo, geralmente após chuvas intensas.</p>
+            <a href="#" class="btn btn-outline">Ver detalhes</a>
+        </div>
+    </div>
+</div>
+
+<!-- Mapa de Riscos -->
+<div class="mapa-risco-container">
+    <div id="mapa-risco"></div>
+    
+    <div class="mapa-risco-overlay">
+        <h3>Mapa de Distribuição</h3>
+        <p>Distribuição global dos principais tipos de desastres naturais. As áreas em vermelho indicam maior concentração de ocorrências.</p>
+    </div>
+    
+    <div class="mapa-risco-legenda">
+        <div class="item-legenda">
+            <div class="cor-legenda" style="background-color: #e74c3c;"></div>
+            <span>Alta Frequência</span>
+        </div>
+        <div class="item-legenda">
+            <div class="cor-legenda" style="background-color: #f39c12;"></div>
+            <span>Média Frequência</span>
+        </div>
+        <div class="item-legenda">
+            <div class="cor-legenda" style="background-color: #27ae60;"></div>
+            <span>Baixa Frequência</span>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Detalhes -->
+<div class="modal-desastre" id="modalDesastre">
+    <div class="modal-conteudo">
+        <button class="modal-fechar">&times;</button>
+        <div class="modal-conteudo-interno">
+            <!-- Conteúdo será carregado via JavaScript -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'scripts/desastres.js' %}"></script>
+{% endblock %}

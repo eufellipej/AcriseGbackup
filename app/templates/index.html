@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{%load static%}
+
+{% block extra_links %}
+    <title>Portal de Desastres Naturais - A Crise G</title>
+    <link rel="stylesheet" href="{% static 'styles/index.css'%}">
+{% endblock %}
+{% block content %}
+<div class="cabecario-sessao">
+    <h2>
+        Últimos Acontecimentos
+    </h2>
+</div>
+
+<div class="carrosel">
+    <div class="slide selecionado"
+        style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1593113630400-ea4288922497?q=80&w=1000');">
+        <span>Alto Risco</span>
+        <h3>Terremoto de magnitude 7.2 atinge região costeira</h3>
+        <p>Recife Norte - Autoridades emitem alerta de tsunami para áreas costeiras</p>
+        <p><small>2 horas atrás</small></p>
+    </div>
+    <div class="slide"
+        style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1536514498073-50e69d39c6cf?q=80&w=1000');">
+        <span>Extremo</span>
+        <h3>Furacão categoria 4 se aproxima da costa leste</h3>
+        <p>Atlântica - Evacuação ordenada para mais de 100 mil pessoas</p>
+        <p><small>5 horas atrás</small></p>
+    </div>
+    <div class="slide"
+        style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://avioesemusicas.com/wp-content/uploads/2022/05/17067009579_d69c714e3f_k.jpg?q=80&w=1000');">
+        <span>Monitoradp</span>
+        <h3>Erupção vulcânica ativa monitorada intensamente</h3>
+        <p>Anel de Fogo - Cinzas vulcânicas afetam voos na região</p>
+        <p><small>1 dia atrás</small></p>
+    </div>
+</div>
+
+<div class="cabecario-sessao">
+    <h2>
+        Sobre o Portal
+    </h2>
+</div>
+
+<p>
+    Sua fonte confiável de informações sobre prevenção, preparação e resposta a desastres naturais. Mantenha-se
+    informado e proteja sua comunidade com conhecimento científico atualizado.
+</p>
+
+<div class="cabecario-sessao">
+    <h2>
+        Mapa Global de Riscos
+    </h2>
+</div>
+<div class="mapa-container">
+    <div id="mapa" style="height: 100%;"></div>
+
+    <div class="mapa-overlay">
+        <h3>Áreas de risco ativo</h3>
+        <ul>
+            <li>Região costeira - Terremoto</li>
+            <li>Costa leste - Furacão</li>
+            <li>Anel de Fogo - Erupção vulcânica</li>
+            <li>Sudeste Asiático - Inundação</li>
+            <li>Cordilheira dos Andes - Deslizamento</li>
+        </ul>
+    </div>
+
+    <div class="mapa-legenda">
+        <div class="legenda-item">
+            <div class="legenda-cor" style="background-color: #e74c3c;"></div>
+            <span>Risco Extremo</span>
+        </div>
+        <div class="legenda-item">
+            <div class="legenda-cor" style="background-color: #f39c12;"></div>
+            <span>Risco Alto</span>
+        </div>
+        <div class="legenda-item">
+            <div class="legenda-cor" style="background-color: #27ae60;"></div>
+            <span>Risco Médio</span>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block extra_scripts %} <script src="{% static 'scripts/index.js' %}"></script> {% endblock %}
